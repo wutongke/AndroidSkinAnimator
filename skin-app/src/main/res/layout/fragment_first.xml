@@ -3,6 +3,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:fitsSystemWindows="true"
     android:orientation="vertical">
 
@@ -56,8 +58,25 @@
                 android:layout_height="?attr/actionBarSize"
                 android:clickable="true"
                 android:gravity="center_vertical"
-                android:text="点击可变文本颜色 @color/color_selector"
-                android:textColor="@color/color_selector"
+                android:text="消失动画测试"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text3"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:text="消失动画测试"
+                android:textSize="18sp" />
+
+            <TextView
+                android:id="@+id/text4"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:clickable="true"
+                android:gravity="center_vertical"
+                android:text="消失动画测试"
                 android:textSize="18sp" />
 
             <LinearLayout

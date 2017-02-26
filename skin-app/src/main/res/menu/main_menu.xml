@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.menutest.MainActivity">
+
+    <item
+        android:id="@+id/animator_choose"
+        android:orderInCategory="100"
+        app:showAsAction="always"
+        android:title="切换动画" />
+
+</menu>

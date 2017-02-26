@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.ximsfei.dynamicskindemo.R;
 
 import skin.support.SkinCompatManager;
+import skin.support.animator.SingleAnimator.RotationHintAnimator;
 import skin.support.utils.SkinLog;
 
 /**
@@ -68,6 +69,17 @@ public class FirstFragment extends Fragment {
 //                checkedMap.put(position, checkedTextView.isChecked());
             }
         });
+
+        final View.OnClickListener onClickListener = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                RotationHintAnimator.getInstance().apply(v, null).start();
+            }
+        };
+
+        view.findViewById(R.id.text2).setOnClickListener(onClickListener);
+        view.findViewById(R.id.text3).setOnClickListener(onClickListener);
+        view.findViewById(R.id.text4).setOnClickListener(onClickListener);
         MultiAutoCompleteTextView autoCompleteTextView = (MultiAutoCompleteTextView) view.findViewById(R.id.auto);
         String[] arr = {"aa", "aab", "aac"};
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, arr);

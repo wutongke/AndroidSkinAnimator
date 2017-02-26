@@ -5,8 +5,13 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 import skin.support.SkinCompatManager;
+import skin.support.animator.Action;
+import skin.support.animator.SkinAlphaAnimator;
+import skin.support.animator.SkinAlphaRotateAnimator;
+import skin.support.animator.activityAnimator.SkinActivityAnimator;
 import skin.support.observe.SkinObservable;
 import skin.support.observe.SkinObserver;
 
@@ -46,6 +51,12 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
 
     @Override
     public void updateSkin(SkinObservable observable, Object o) {
-        getSkinDelegate().applySkin();
+        View rootView = findViewById(android.R.id.content);
+        SkinActivityAnimator.updateSkin(rootView, new Action() {
+            @Override
+            public void action() {
+                getSkinDelegate().applySkin();
+            }
+        });
     }
 }

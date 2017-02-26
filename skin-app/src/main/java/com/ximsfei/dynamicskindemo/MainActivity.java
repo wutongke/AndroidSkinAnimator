@@ -3,15 +3,18 @@ package com.ximsfei.dynamicskindemo;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.ximsfei.dynamicskindemo.tab.ArrayDialogFragment;
 import com.ximsfei.dynamicskindemo.tab.FirstFragment;
 import com.ximsfei.dynamicskindemo.tab.LastFragment;
 import com.ximsfei.dynamicskindemo.tab.MiddleFragment;
@@ -29,8 +32,9 @@ import skin.support.utils.SkinPreference;
  */
 
 public class MainActivity extends SkinCompatActivity {
-//public class MainActivity extends AppCompatActivity {
+    //public class MainActivity extends AppCompatActivity {
     private TabFragmentPagerAdapter mTabFragmentPagerAdapter;
+    private DialogFragment dialogFragment;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -38,6 +42,7 @@ public class MainActivity extends SkinCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initToolbar();
+        initConfigAnimatorDialog();
         configFragments();
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,6 +54,26 @@ public class MainActivity extends SkinCompatActivity {
                 }
             }
         });
+    }
+
+    private void initConfigAnimatorDialog() {
+        dialogFragment = new ArrayDialogFragment();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.animator_choose) {
+            dialogFragment.show(getSupportFragmentManager(), "");
+        }
+        return true;
     }
 
     private void configFragments() {
