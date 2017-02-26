@@ -7,22 +7,24 @@ import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
+import android.view.animation.BounceInterpolator;
 import android.view.animation.LinearInterpolator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class SkinAlphaRotateAnimator implements SkinAnimator {
+public class TranslationAnimator implements SkinAnimator {
     protected ObjectAnimator preAnimator;
     protected ObjectAnimator afterAnimator;
     protected View targetView;
 
-    private SkinAlphaRotateAnimator() {
+    private TranslationAnimator() {
     }
 
-    public static SkinAlphaRotateAnimator getInstance() {
-        SkinAlphaRotateAnimator skinAlphaAnimator = new SkinAlphaRotateAnimator();
+    public static TranslationAnimator getInstance() {
+        TranslationAnimator skinAlphaAnimator = new TranslationAnimator();
         return skinAlphaAnimator;
     }
 
@@ -30,19 +32,15 @@ public class SkinAlphaRotateAnimator implements SkinAnimator {
     public SkinAnimator apply(@NonNull View view, @Nullable final Action action) {
         this.targetView = view;
         preAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
-                PropertyValuesHolder.ofFloat("alpha", 1, 0),
                 PropertyValuesHolder.ofFloat("translationX",
-                        view.getLeft(), view.getLeft() - view.getWidth()),
-                PropertyValuesHolder.ofFloat("rotationY", 0, -180))
-                .setDuration(PRE_DURATION);
-        preAnimator.setInterpolator(new LinearInterpolator());
+                        view.getLeft(), view.getRight()))
+                .setDuration(PRE_DURATION * 3);
+        preAnimator.setInterpolator(new AccelerateInterpolator());
         afterAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
-                PropertyValuesHolder.ofFloat("alpha", 0, 1),
                 PropertyValuesHolder.ofFloat("translationX",
-                        view.getLeft() - view.getWidth(), view.getLeft()),
-                PropertyValuesHolder.ofFloat("rotationY", -180, 0))
-                .setDuration(AFTER_DURATION);
-        afterAnimator.setInterpolator(new LinearInterpolator());
+                        view.getRight(), view.getLeft()))
+                .setDuration(AFTER_DURATION * 3);
+        afterAnimator.setInterpolator(new BounceInterpolator());
 
         preAnimator.addListener(new AnimatorListenerAdapter() {
             @Override

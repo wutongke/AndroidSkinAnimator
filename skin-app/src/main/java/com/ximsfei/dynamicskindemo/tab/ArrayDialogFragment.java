@@ -33,8 +33,9 @@ public class ArrayDialogFragment extends DialogFragment{
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemList.clear();
-        itemList.add("alpha");
-        itemList.add("rotate");
+        for(ActivityAnimatorType activityAnimatorType : ActivityAnimatorType.values()){
+            itemList.add(activityAnimatorType.name());
+        }
     }
 
     @Nullable

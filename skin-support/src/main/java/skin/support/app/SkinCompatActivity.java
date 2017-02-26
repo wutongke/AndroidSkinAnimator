@@ -9,8 +9,6 @@ import android.view.View;
 
 import skin.support.SkinCompatManager;
 import skin.support.animator.Action;
-import skin.support.animator.SkinAlphaAnimator;
-import skin.support.animator.SkinAlphaRotateAnimator;
 import skin.support.animator.activityAnimator.SkinActivityAnimator;
 import skin.support.observe.SkinObservable;
 import skin.support.observe.SkinObserver;
