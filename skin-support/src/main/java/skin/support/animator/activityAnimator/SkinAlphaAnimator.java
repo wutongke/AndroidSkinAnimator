@@ -1,53 +1,53 @@
-package skin.support.animator;
+package skin.support.animator.activityAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
-import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+
+import skin.support.animator.Action;
+import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class SkinRotateAnimator3 implements SkinAnimator {
+public class SkinAlphaAnimator implements SkinAnimator {
     protected ObjectAnimator preAnimator;
+    protected ObjectAnimator afterAnimator;
     protected View targetView;
 
-    private SkinRotateAnimator3() {
+    private SkinAlphaAnimator() {
     }
 
-    public static SkinRotateAnimator3 getInstance() {
-        SkinRotateAnimator3 skinAlphaAnimator = new SkinRotateAnimator3();
+    public static SkinAlphaAnimator getInstance() {
+        SkinAlphaAnimator skinAlphaAnimator = new SkinAlphaAnimator();
         return skinAlphaAnimator;
     }
 
     @Override
     public SkinAnimator apply(@NonNull View view, @Nullable final Action action) {
         this.targetView = view;
-        preAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
-                PropertyValuesHolder.ofFloat("scaleX",
-                        1, 0.5f, 0.2f, 0.05f, 0.8f, 1),
-                PropertyValuesHolder.ofFloat("scaleY",
-                        1, 0.5f, 0.2f, 0.05f, 0.8f, 1),
-                PropertyValuesHolder.ofFloat("rotationY", 0, 720))
-                .setDuration(PRE_DURATION * 3);
+        preAnimator = ObjectAnimator.ofFloat(targetView, "alpha", 1, 0)
+                .setDuration(PRE_DURATION);
         preAnimator.setInterpolator(new LinearInterpolator());
+        afterAnimator = ObjectAnimator.ofFloat(targetView, "alpha", 0, 1)
+                .setDuration(AFTER_DURATION);
+        afterAnimator.setInterpolator(new LinearInterpolator());
 
-        view.postDelayed(new Runnable() {
+        preAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
-            public void run() {
+            public void onAnimationEnd(Animator animation) {
+                super.onAnimationEnd(animation);
                 if(action != null){
                     action.action();
                 }
+                afterAnimator.start();
             }
-        }, PRE_DURATION);
-
-        preAnimator.setInterpolator(new AccelerateDecelerateInterpolator());
+        });
         return this;
     }
 

@@ -1,4 +1,4 @@
-package skin.support.animator;
+package skin.support.animator.activityAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,20 +9,23 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
 
+import skin.support.animator.Action;
+import skin.support.animator.SkinAnimator;
+
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class SkinRotateAnimator4 implements SkinAnimator {
+public class SkinRotateAnimator implements SkinAnimator {
     protected ObjectAnimator preAnimator;
     protected ObjectAnimator afterAnimator;
     protected View targetView;
 
-    private SkinRotateAnimator4() {
+    private SkinRotateAnimator() {
     }
 
-    public static SkinRotateAnimator4 getInstance() {
-        SkinRotateAnimator4 skinAlphaAnimator = new SkinRotateAnimator4();
+    public static SkinRotateAnimator getInstance() {
+        SkinRotateAnimator skinAlphaAnimator = new SkinRotateAnimator();
         return skinAlphaAnimator;
     }
 
@@ -32,20 +35,16 @@ public class SkinRotateAnimator4 implements SkinAnimator {
         preAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
                 PropertyValuesHolder.ofFloat("translationX",
                         view.getLeft(), view.getLeft() - view.getWidth()),
-                PropertyValuesHolder.ofFloat("translationY",
-                        view.getTop(), view.getTop() - view.getHeight() / 2),
                 PropertyValuesHolder.ofFloat("scaleX",
-                        0f),
+                        0.3f),
                 PropertyValuesHolder.ofFloat("scaleY",
-                        0f),
+                        0.3f),
                 PropertyValuesHolder.ofFloat("rotationY", 0, -90))
                 .setDuration(PRE_DURATION * 3);
         preAnimator.setInterpolator(new LinearInterpolator());
         afterAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
                 PropertyValuesHolder.ofFloat("translationX",
                         view.getLeft() - view.getWidth(), view.getLeft()),
-                PropertyValuesHolder.ofFloat("translationY",
-                        view.getTop() - view.getHeight() / 2, view.getTop()),
                 PropertyValuesHolder.ofFloat("scaleX",
                         1),
                 PropertyValuesHolder.ofFloat("scaleY",

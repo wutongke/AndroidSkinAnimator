@@ -1,4 +1,4 @@
-package skin.support.animator;
+package skin.support.animator.activityAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,23 +7,25 @@ import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.AccelerateInterpolator;
-import android.view.animation.BounceInterpolator;
+import android.view.animation.LinearInterpolator;
+
+import skin.support.animator.Action;
+import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class TranslationAnimator2 implements SkinAnimator {
+public class SkinRotateAnimator4 implements SkinAnimator {
     protected ObjectAnimator preAnimator;
     protected ObjectAnimator afterAnimator;
     protected View targetView;
 
-    private TranslationAnimator2() {
+    private SkinRotateAnimator4() {
     }
 
-    public static TranslationAnimator2 getInstance() {
-        TranslationAnimator2 skinAlphaAnimator = new TranslationAnimator2();
+    public static SkinRotateAnimator4 getInstance() {
+        SkinRotateAnimator4 skinAlphaAnimator = new SkinRotateAnimator4();
         return skinAlphaAnimator;
     }
 
@@ -32,14 +34,28 @@ public class TranslationAnimator2 implements SkinAnimator {
         this.targetView = view;
         preAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
                 PropertyValuesHolder.ofFloat("translationX",
-                        view.getLeft(), view.getRight()))
+                        view.getLeft(), view.getLeft() - view.getWidth()),
+                PropertyValuesHolder.ofFloat("translationY",
+                        view.getTop(), view.getTop() - view.getHeight() / 2),
+                PropertyValuesHolder.ofFloat("scaleX",
+                        0f),
+                PropertyValuesHolder.ofFloat("scaleY",
+                        0f),
+                PropertyValuesHolder.ofFloat("rotationY", 0, -90))
                 .setDuration(PRE_DURATION * 3);
-        preAnimator.setInterpolator(new AccelerateInterpolator());
+        preAnimator.setInterpolator(new LinearInterpolator());
         afterAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
                 PropertyValuesHolder.ofFloat("translationX",
-                        view.getLeft() - view.getWidth(), view.getLeft()))
+                        view.getLeft() - view.getWidth(), view.getLeft()),
+                PropertyValuesHolder.ofFloat("translationY",
+                        view.getTop() - view.getHeight() / 2, view.getTop()),
+                PropertyValuesHolder.ofFloat("scaleX",
+                        1),
+                PropertyValuesHolder.ofFloat("scaleY",
+                        1),
+                PropertyValuesHolder.ofFloat("rotationY", -90, 0))
                 .setDuration(AFTER_DURATION * 3);
-        afterAnimator.setInterpolator(new BounceInterpolator());
+        afterAnimator.setInterpolator(new LinearInterpolator());
 
         preAnimator.addListener(new AnimatorListenerAdapter() {
             @Override

@@ -1,4 +1,4 @@
-package skin.support.animator.SingleAnimator;
+package skin.support.animator.SingleAnimator.hite;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.animation.LinearInterpolator;
 
 import skin.support.animator.Action;
+import skin.support.animator.SingleAnimator.SingleAnimatorImpl;
 import skin.support.animator.SkinAnimator;
 
 /**

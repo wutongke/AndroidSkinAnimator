@@ -1,4 +1,4 @@
-package skin.support.animator;
+package skin.support.animator.activityAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -9,6 +9,9 @@ import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
+
+import skin.support.animator.Action;
+import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.

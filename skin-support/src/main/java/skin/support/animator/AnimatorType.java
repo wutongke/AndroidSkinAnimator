@@ -2,6 +2,17 @@ package skin.support.animator;
 
 import android.view.View;
 
+import skin.support.animator.activityAnimator.ScaleAnimator;
+import skin.support.animator.activityAnimator.ScaleAnimator2;
+import skin.support.animator.activityAnimator.SkinAlphaAnimator;
+import skin.support.animator.activityAnimator.SkinRotateAnimator;
+import skin.support.animator.activityAnimator.SkinRotateAnimator2;
+import skin.support.animator.activityAnimator.SkinRotateAnimator3;
+import skin.support.animator.activityAnimator.SkinRotateAnimator4;
+import skin.support.animator.activityAnimator.SkinRotateHintAnimator;
+import skin.support.animator.activityAnimator.TranslationAnimator;
+import skin.support.animator.activityAnimator.TranslationAnimator2;
+
 /**
  * Created by erfli on 2/26/17.
  */

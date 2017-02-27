@@ -1,4 +1,4 @@
-package skin.support.animator;
+package skin.support.animator.activityAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -7,62 +7,53 @@ import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.LinearInterpolator;
+import android.view.animation.AnticipateInterpolator;
+import android.view.animation.BounceInterpolator;
+
+import skin.support.animator.Action;
+import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class ScaleAnimator2 implements SkinAnimator {
+public class TranslationAnimator implements SkinAnimator {
     protected ObjectAnimator preAnimator;
     protected ObjectAnimator afterAnimator;
     protected View targetView;
 
-    private ScaleAnimator2() {
+    private TranslationAnimator() {
     }
 
-    public static ScaleAnimator2 getInstance() {
-        ScaleAnimator2 skinAlphaAnimator = new ScaleAnimator2();
+    public static TranslationAnimator getInstance() {
+        TranslationAnimator skinAlphaAnimator = new TranslationAnimator();
         return skinAlphaAnimator;
     }
 
     @Override
     public SkinAnimator apply(@NonNull View view, @Nullable final Action action) {
         this.targetView = view;
-        targetView.setPivotX(targetView.getLeft());
-        targetView.setPivotY(targetView.getTop());
         preAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
-                PropertyValuesHolder.ofFloat("ScaleX",
-                        1, 0),
-                PropertyValuesHolder.ofFloat("ScaleY",
-                        1, 0))
+                PropertyValuesHolder.ofFloat("alpha", 1, 0),
+                PropertyValuesHolder.ofFloat("translationX",
+                        view.getLeft(), view.getRight()))
                 .setDuration(PRE_DURATION * 3);
-        preAnimator.setInterpolator(new LinearInterpolator());
+        preAnimator.setInterpolator(new AnticipateInterpolator());
         afterAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
-                PropertyValuesHolder.ofFloat("ScaleX",
-                        0, 1),
-                PropertyValuesHolder.ofFloat("ScaleY",
-                        0, 1))
-                .setDuration(AFTER_DURATION * 3);
-        afterAnimator.setInterpolator(new LinearInterpolator());
+                PropertyValuesHolder.ofFloat("translationX",
+                        view.getRight(), view.getLeft()))
+                .setDuration(AFTER_DURATION * 2);
+        afterAnimator.setInterpolator(new BounceInterpolator());
 
         preAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                targetView.setAlpha(1);
                 if (action != null) {
                     action.action();
                 }
                 afterAnimator.start();
-            }
-        });
-
-        afterAnimator.addListener(new AnimatorListenerAdapter() {
-            @Override
-            public void onAnimationEnd(Animator animation) {
-                super.onAnimationEnd(animation);
-                targetView.setPivotX((targetView.getLeft() + targetView.getRight()) / 2);
-                targetView.setPivotY((targetView.getTop() + targetView.getBottom()) / 2);
             }
         });
         return this;

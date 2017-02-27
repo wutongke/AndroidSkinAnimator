@@ -1,50 +1,64 @@
-package skin.support.animator;
+package skin.support.animator.activityAnimator;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.animation.ObjectAnimator;
+import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.LinearInterpolator;
+import android.view.animation.OvershootInterpolator;
+
+import skin.support.animator.Action;
+import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class SkinAlphaAnimator implements SkinAnimator {
+public class ScaleAnimator implements SkinAnimator {
     protected ObjectAnimator preAnimator;
     protected ObjectAnimator afterAnimator;
     protected View targetView;
 
-    private SkinAlphaAnimator() {
+    private ScaleAnimator() {
     }
 
-    public static SkinAlphaAnimator getInstance() {
-        SkinAlphaAnimator skinAlphaAnimator = new SkinAlphaAnimator();
+    public static ScaleAnimator getInstance() {
+        ScaleAnimator skinAlphaAnimator = new ScaleAnimator();
         return skinAlphaAnimator;
     }
 
     @Override
     public SkinAnimator apply(@NonNull View view, @Nullable final Action action) {
         this.targetView = view;
-        preAnimator = ObjectAnimator.ofFloat(targetView, "alpha", 1, 0)
-                .setDuration(PRE_DURATION);
+        preAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
+                PropertyValuesHolder.ofFloat("ScaleX",
+                        1, 0),
+                PropertyValuesHolder.ofFloat("ScaleY",
+                        1, 0))
+                .setDuration(PRE_DURATION * 3);
         preAnimator.setInterpolator(new LinearInterpolator());
-        afterAnimator = ObjectAnimator.ofFloat(targetView, "alpha", 0, 1)
-                .setDuration(AFTER_DURATION);
-        afterAnimator.setInterpolator(new LinearInterpolator());
+        afterAnimator = ObjectAnimator.ofPropertyValuesHolder(targetView,
+                PropertyValuesHolder.ofFloat("ScaleX",
+                        0, 1),
+                PropertyValuesHolder.ofFloat("ScaleY",
+                        0, 1))
+                .setDuration(AFTER_DURATION * 2);
+        afterAnimator.setInterpolator(new OvershootInterpolator());
 
         preAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                if(action != null){
+                if (action != null) {
                     action.action();
                 }
                 afterAnimator.start();
             }
         });
+
         return this;
     }
 
