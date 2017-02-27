@@ -1,3 +1,8 @@
+换肤增加了动画
+![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/1.gif)
+![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/2.gif)
+![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/3.gif)
+![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/4.gif)
 
 
 ## 致谢
