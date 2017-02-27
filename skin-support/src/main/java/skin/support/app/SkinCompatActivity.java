@@ -9,6 +9,8 @@ import android.view.View;
 
 import skin.support.SkinCompatManager;
 import skin.support.animator.Action;
+import skin.support.animator.SingleAnimator.AnimatorConfig;
+import skin.support.animator.SingleAnimator.AnimatorManager;
 import skin.support.animator.activityAnimator.SkinActivityAnimator;
 import skin.support.observe.SkinObservable;
 import skin.support.observe.SkinObserver;
@@ -56,5 +58,9 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
                 getSkinDelegate().applySkin();
             }
         });
+    }
+
+    protected void setAnimatorConfig(AnimatorConfig animatorConfig){
+        AnimatorManager.setConfig(animatorConfig);
     }
 }

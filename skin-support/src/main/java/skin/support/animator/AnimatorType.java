@@ -6,7 +6,7 @@ import android.view.View;
  * Created by erfli on 2/26/17.
  */
 
-public enum ActivityAnimatorType {
+public enum AnimatorType {
     ALPHA{
         @Override
         public void apply(View view, Action action) {
@@ -65,6 +65,12 @@ public enum ActivityAnimatorType {
         @Override
         public void apply(View view, Action action) {
             ScaleAnimator2.getInstance().apply(view, action).start();
+        }
+    },
+    None{
+        @Override
+        public void apply(View view, Action action) {
+
         }
     };
     public abstract void apply(View view, Action action);

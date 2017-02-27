@@ -5,7 +5,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.view.ViewPager;
@@ -31,6 +30,8 @@ import java.util.List;
 
 import skin.support.SkinCompatManager;
 import skin.support.animator.Action;
+import skin.support.animator.AnimatorType;
+import skin.support.animator.SingleAnimator.AnimatorConfig;
 
 import static com.ximsfei.skindemo.DataManager.NIGHT_SKIN;
 import static com.ximsfei.skindemo.DataManager.SKIN_LIBS;
@@ -57,6 +58,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        configAnimator();
         super.onCreate(savedInstanceState);
         mDataBinding.setListener(this);
         initToolbar(mDataBinding.toolBar);
@@ -73,6 +75,13 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 changeNightMode();
             }
         });
+    }
+
+    private void configAnimator() {
+        setAnimatorConfig(new AnimatorConfig
+                .Builder()
+                .textviewTextAnimationType(AnimatorType.ALPHA)
+                .build());
     }
 
     @Override
@@ -115,7 +124,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
         changeNightMode();
     }
 
-    private void changeNightMode(){
+    private void changeNightMode() {
         if (!SPUtils.getInstance().getNightMode()) {
             SPUtils.getInstance().setCurSkin(SkinCompatManager.getInstance().getCurSkinName()).commitEditor();
             SkinCompatManager.getInstance().loadSkin(NIGHT_SKIN);

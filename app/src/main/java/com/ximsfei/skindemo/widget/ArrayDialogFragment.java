@@ -15,7 +15,7 @@ import com.ximsfei.skindemo.R;
 import java.util.ArrayList;
 
 import skin.support.animator.Action;
-import skin.support.animator.ActivityAnimatorType;
+import skin.support.animator.AnimatorType;
 import skin.support.animator.activityAnimator.SkinActivityAnimator;
 
 /**
@@ -33,8 +33,8 @@ public class ArrayDialogFragment extends DialogFragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         itemList.clear();
-        for (ActivityAnimatorType activityAnimatorType : ActivityAnimatorType.values()) {
-            itemList.add(activityAnimatorType.name());
+        for (AnimatorType animatorType : AnimatorType.values()) {
+            itemList.add(animatorType.name());
         }
     }
 
@@ -50,7 +50,7 @@ public class ArrayDialogFragment extends DialogFragment {
         animatorChooseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SkinActivityAnimator.configActivityAnimatorType(ActivityAnimatorType.values()[position]);
+                SkinActivityAnimator.configActivityAnimatorType(AnimatorType.values()[position]);
                 if(action != null){
                     action.action();
                 }

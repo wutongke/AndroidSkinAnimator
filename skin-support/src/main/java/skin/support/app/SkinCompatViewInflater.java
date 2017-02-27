@@ -22,6 +22,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import skin.support.SkinCompatManager;
+import skin.support.animator.SingleAnimator.AnimatorManager;
 import skin.support.widget.SkinCompatAutoCompleteTextView;
 import skin.support.widget.SkinCompatButton;
 import skin.support.widget.SkinCompatCheckBox;
@@ -41,6 +42,7 @@ import skin.support.widget.SkinCompatSpinner;
 import skin.support.widget.SkinCompatTextView;
 import skin.support.widget.SkinCompatToolbar;
 import skin.support.widget.SkinCompatView;
+import skin.support.widget.animator.SkinCompatAnimatorTextView;
 
 /**
  * Created by ximsfei on 17-1-9.
@@ -99,7 +101,11 @@ public class SkinCompatViewInflater {
                 view = new SkinCompatFrameLayout(context, attrs);
                 break;
             case "TextView":
-                view = new SkinCompatTextView(context, attrs);
+                if(AnimatorManager.getConfig().needTextViewAnimator()){
+                    view = new SkinCompatAnimatorTextView(context, attrs);
+                }else{
+                    view = new SkinCompatAnimatorTextView(context, attrs);
+                }
                 break;
             case "ImageView":
                 view = new SkinCompatImageView(context, attrs);

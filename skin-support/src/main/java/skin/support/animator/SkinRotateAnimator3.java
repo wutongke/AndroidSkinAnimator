@@ -41,7 +41,9 @@ public class SkinRotateAnimator3 implements SkinAnimator {
         view.postDelayed(new Runnable() {
             @Override
             public void run() {
-                action.action();
+                if(action != null){
+                    action.action();
+                }
             }
         }, PRE_DURATION);
 
