@@ -37,6 +37,12 @@ public enum ActivityAnimatorType {
             SkinRotateAnimator4.getInstance().apply(view, action).start();
         }
     },
+    ROTATE5{
+        @Override
+        public void apply(View view, Action action) {
+            SkinRotateHintAnimator.getInstance().apply(view, action).start();
+        }
+    },
     TRANSLATION{
         @Override
         public void apply(View view, Action action) {
@@ -53,6 +59,12 @@ public enum ActivityAnimatorType {
         @Override
         public void apply(View view, Action action) {
             ScaleAnimator.getInstance().apply(view, action).start();
+        }
+    },
+    Scale2{
+        @Override
+        public void apply(View view, Action action) {
+            ScaleAnimator2.getInstance().apply(view, action).start();
         }
     };
     public abstract void apply(View view, Action action);
