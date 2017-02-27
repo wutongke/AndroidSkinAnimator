@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/menu_change"
+        android:title="换肤"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menu_choose"
+        android:title="选择动画"
+        app:showAsAction="ifRoom" />
+</menu>

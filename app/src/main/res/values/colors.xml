@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#ffce3d3a</color>
+    <color name="colorPrimaryDark">#fffaebeb</color>
+    <color name="colorAccent">#ffce3d3a</color>
+    <color name="status_bar_color">#ffce3d3a</color>
+    <color name="tabSelectedTextColor">#ffce3d3a</color>
+    <color name="tabTextColor">#88000000</color>
+    <color name="tabIndicatorColor">#ffce0f00</color>
+    <color name="tabBackgroundColor">#ffffffff</color>
+    <color name="textColorPrimary">#ff333333</color>
+    <color name="background_color_accent">#ffffffff</color>
+    <color name="day_text_color_normal">#ffce3d3a</color>
+    <color name="day_text_color_pressed">#ffffffff</color>
+    <color name="divider_line_color">#ffd4d4d4</color>
+    <color name="content_background_color">#f2f4f5</color>
+    <color name="adjust_text_color">#ffce3d3a</color>
+
+    <color name="text_color_description">#7d7d7d</color>
+    <color name="adjust_pressed">#fffaebeb</color>
+    <color name="text_color">#3d3d3d</color>
+    <color name="text_color_title">#ffffffff</color>
+</resources>
