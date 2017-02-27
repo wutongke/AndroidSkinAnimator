@@ -7,6 +7,7 @@ import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
+import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import skin.support.animator.Action;
@@ -19,8 +20,8 @@ import skin.support.animator.SkinAnimator;
 
 public class RotationHintAnimator extends SingleAnimatorImpl {
 
-    private ObjectAnimator animator;
-    private ObjectAnimator afterAnimator;
+    private ObjectAnimator hiteAniamator;
+    private ObjectAnimator rotationAnimator;
 
     private RotationHintAnimator() {
     }
@@ -33,27 +34,39 @@ public class RotationHintAnimator extends SingleAnimatorImpl {
     @Override
     public SkinAnimator apply(@NonNull final View view, @Nullable final Action action) {
         view.setPivotY(0);
-        view.setPivotX(0);
-        view.animate().translationX(view.getHeight() * 2).setDuration(0).start();
-        animator = ObjectAnimator.ofFloat(view, "rotation", 0, 90, 55, 90, 55, 90, 55, 90);
-        animator.setDuration(PRE_DURATION * 8);
-        animator.setInterpolator(new LinearInterpolator());
-        animator.addListener(new AnimatorListenerAdapter() {
+        view.setPivotX(view.getHeight() / 2);
+        view.animate().translationX(view.getHeight() / 2).setDuration(100).start();
+
+        int middle = 45;
+        int range = 15;
+        rotationAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofFloat("rotation",
+                        0, middle - range, middle + range, middle - range, middle + range, middle - range, middle + range)
+        ).setDuration(PRE_DURATION * 8);
+        rotationAnimator.setStartDelay(100);
+        rotationAnimator.setInterpolator(new LinearInterpolator());
+        rotationAnimator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                afterAnimator.start();
+                hiteAniamator.start();
             }
         });
 
-        afterAnimator = ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofFloat("translationY", view.getTop(), view.getTop() + view.getHeight() * 3),
-                PropertyValuesHolder.ofFloat("alpha", 1, 0)).setDuration(AFTER_DURATION * 3);
-        afterAnimator.setInterpolator(new LinearInterpolator());
-        afterAnimator.addListener(new AnimatorListenerAdapter() {
+        hiteAniamator = ObjectAnimator.ofPropertyValuesHolder(view,
+                PropertyValuesHolder.ofFloat("TranslationY", 0, view.getHeight()),
+                PropertyValuesHolder.ofFloat("alpha", 1, 0));
+        hiteAniamator.setInterpolator(new AccelerateInterpolator());
+        hiteAniamator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
+                view.setAlpha(1);
+                view.animate().rotation(0).start();
+                view.animate().translationY(0).start();
+                view.animate().translationX(0).start();
+                view.setPivotX(view.getLeft() + view.getWidth() / 2);
+                view.setPivotY(view.getTop() + view.getHeight() / 2);
                 view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();
@@ -66,6 +79,6 @@ public class RotationHintAnimator extends SingleAnimatorImpl {
 
     @Override
     public void start() {
-        animator.start();
+        rotationAnimator.start();
     }
 }

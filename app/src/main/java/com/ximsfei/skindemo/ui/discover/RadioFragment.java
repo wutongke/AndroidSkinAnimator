@@ -8,8 +8,12 @@ import com.ximsfei.skindemo.R;
 import com.ximsfei.skindemo.databinding.FragmentRadioBinding;
 import com.ximsfei.skindemo.ui.base.BaseFragment;
 
-import skin.support.animator.AnimatorType;
-import skin.support.animator.SingleAnimator.SingleAnimatorUtil;
+import skin.support.animator.SingleAnimator.hite.AlphaHintAnimator;
+import skin.support.animator.SingleAnimator.hite.RotationHintAnimator;
+import skin.support.animator.SingleAnimator.hite.ScaleHintAnimator;
+import skin.support.animator.SingleAnimator.hite.TranslationHintAnimator;
+import skin.support.animator.SingleAnimator.hite.TranslationHintAnimator2;
+import skin.support.animator.SingleAnimator.hite.TranslationRotationHintAnimator2;
 
 /**
  * Created by ximsfei on 17-1-8.
@@ -34,22 +38,12 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
                 }
             }
         });
-//        int childCount = mDataBinding.viewLayout.getChildCount();
-//        for (int i = 1; i < childCount; i++) {
-//            final int index = i;
-//            mDataBinding.viewLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    SingleAnimatorUtil.executeAnimator(v, AnimatorType.values()[index % AnimatorType.values().length], null);
-//                }
-//            });
-//        }
         mDataBinding.text1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mDataBinding.text1.getText().equals("text1")){
+                if (mDataBinding.text1.getText().equals("text1")) {
                     mDataBinding.text1.setText("text1_change");
-                }else{
+                } else {
                     mDataBinding.text1.setText("text1");
                 }
             }
@@ -58,7 +52,42 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
         mDataBinding.text2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mDataBinding.text2.setVisibility(View.GONE);
+                RotationHintAnimator.getInstance().apply(mDataBinding.text2, null).start();
+            }
+        });
+
+        mDataBinding.text3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ScaleHintAnimator.getInstance().apply(v, null).start();
+            }
+        });
+
+        mDataBinding.text4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslationHintAnimator.getInstance().apply(v, null).start();
+            }
+        });
+
+        mDataBinding.text5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslationHintAnimator2.getInstance().apply(v, null).start();
+            }
+        });
+
+        mDataBinding.text6.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlphaHintAnimator.getInstance().apply(v, null).start();
+            }
+        });
+
+        mDataBinding.text8.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslationRotationHintAnimator2.getInstance().apply(v, null).start();
             }
         });
     }
