@@ -13,7 +13,6 @@ import com.ximsfei.skindemo.ui.base.BaseFragment;
 import skin.support.animator.Action;
 import skin.support.animator.SingleAnimator.AnimatorManager;
 import skin.support.animator.SingleAnimator.ViewAnimatorType;
-import skin.support.animator.SingleAnimator.hide.RotationHideAnimator;
 
 /**
  * Created by ximsfei on 17-1-8.

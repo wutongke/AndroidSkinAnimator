@@ -4,7 +4,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import skin.support.animator.Action;
-import skin.support.animator.AnimatorType;
 import skin.support.animator.SingleAnimator.AnimatorManager;
 import skin.support.animator.SingleAnimator.ViewAnimatorType;
 import skin.support.animator.SingleAnimator.ViewAnimatorUtil;
@@ -48,7 +47,7 @@ public class SkinCompatAnimatorTextView extends SkinCompatTextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
 
-        if (AnimatorManager.getConfig().getTextViewTextAnimationType() == ViewAnimatorType.None) {
+        if (getText() == null || getText().toString().isEmpty() || AnimatorManager.getConfig().getTextViewTextAnimationType() == ViewAnimatorType.None) {
             updateText(text, type);
             return;
         }
@@ -72,9 +71,9 @@ public class SkinCompatAnimatorTextView extends SkinCompatTextView {
             super.setVisibility(visibility);
         } else {
             this.visibleStatus = visibility;
-            if(visibility == GONE){
+            if (visibility == GONE) {
                 ViewAnimatorUtil.executeAnimator(this, AnimatorManager.getConfig().getTextViewVisibleAnimationType(), visibleAction);
-            }else{
+            } else {
                 visibleAction.action();
             }
         }
