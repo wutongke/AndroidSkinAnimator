@@ -16,12 +16,32 @@
         android:orientation="vertical"
         android:paddingLeft="10dp">
 
-        <Button
-            android:id="@+id/recover"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:text="恢复" />
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/recover"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="恢复" />
+
+            <Button
+                android:id="@+id/animator"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="隐藏所有TextView" />
+
+            <Button
+                android:id="@+id/toggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tag="close"
+                android:text="开启全局动画" />
+        </LinearLayout>
+
 
         <TextView
             android:id="@+id/text1"
@@ -84,6 +104,7 @@
             android:text="text5"
             android:textColor="#000000"
             android:textSize="20dp" />
+
         <TextView
             android:id="@+id/text6"
             android:layout_width="wrap_content"
@@ -95,6 +116,7 @@
             android:text="text6"
             android:textColor="#000000"
             android:textSize="20dp" />
+
         <TextView
             android:id="@+id/text8"
             android:layout_width="wrap_content"
@@ -106,6 +128,7 @@
             android:text="text8"
             android:textColor="#000000"
             android:textSize="20dp" />
+
         <TextView
             android:id="@+id/text9"
             android:layout_width="wrap_content"
@@ -117,6 +140,7 @@
             android:text="text9"
             android:textColor="#000000"
             android:textSize="20dp" />
+
         <TextView
             android:id="@+id/text10"
             android:layout_width="wrap_content"

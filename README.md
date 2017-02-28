@@ -13,6 +13,13 @@
 ## 增加了一些View动画
 
 ![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/9.gif)
+![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/10.gif)
+
+## 全局动画
+
+全局动画和换肤原理相同，直接替换了View组件，原理可以参考[Android-skin-support](https://github.com/ximsfei/Android-skin-support)
+
+![](https://github.com/wutongke/AndroidSkinAnimator/blob/master/gif/10.gif)
 
 ## 致谢
 

@@ -1,4 +1,4 @@
-package skin.support.animator.SingleAnimator.hite;
+package skin.support.animator.SingleAnimator.hide;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -8,41 +8,39 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
 import android.view.animation.AnticipateInterpolator;
-import android.view.animation.LinearInterpolator;
 
 import skin.support.animator.Action;
-import skin.support.animator.SingleAnimator.SingleAnimatorImpl;
+import skin.support.animator.SingleAnimator.ViewAnimatorImpl;
 import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class AlphaHintAnimator extends SingleAnimatorImpl {
+public class TranslationHideAnimator extends ViewAnimatorImpl {
 
     private ObjectAnimator animator;
 
-    private AlphaHintAnimator() {
+    private TranslationHideAnimator() {
     }
 
 
-    public static AlphaHintAnimator getInstance() {
-        return new AlphaHintAnimator();
+    public static TranslationHideAnimator getInstance() {
+        return new TranslationHideAnimator();
     }
 
     @Override
     public SkinAnimator apply(@NonNull final View view, @Nullable final Action action) {
         animator = ObjectAnimator.ofPropertyValuesHolder(view,
-                PropertyValuesHolder.ofFloat("alpha", 1, 0)
-        );
+                PropertyValuesHolder.ofFloat("alpha", 1, 0),
+                PropertyValuesHolder.ofFloat("translationX", view.getLeft(), view.getRight()));
         animator.setDuration(3 * PRE_DURATION);
-        animator.setInterpolator(new LinearInterpolator());
+        animator.setInterpolator(new AnticipateInterpolator());
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 resetView(view);
-                view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();
                 }

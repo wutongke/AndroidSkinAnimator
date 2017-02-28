@@ -11,7 +11,7 @@ import skin.support.animator.SkinAnimator;
  * Created by erfli on 2/25/17.
  */
 
-public abstract class SingleAnimatorImpl implements SkinAnimator {
+public abstract class ViewAnimatorImpl implements SkinAnimator {
     @Override
     public abstract SkinAnimator apply(@NonNull View view, @Nullable Action action);
 

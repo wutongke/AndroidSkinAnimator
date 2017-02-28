@@ -4,8 +4,10 @@ import android.content.Context;
 import android.util.AttributeSet;
 
 import skin.support.animator.Action;
+import skin.support.animator.AnimatorType;
 import skin.support.animator.SingleAnimator.AnimatorManager;
-import skin.support.animator.SingleAnimator.SingleAnimatorUtil;
+import skin.support.animator.SingleAnimator.ViewAnimatorType;
+import skin.support.animator.SingleAnimator.ViewAnimatorUtil;
 import skin.support.widget.SkinCompatTextView;
 
 /**
@@ -46,12 +48,12 @@ public class SkinCompatAnimatorTextView extends SkinCompatTextView {
     @Override
     public void setText(CharSequence text, BufferType type) {
 
-        if (AnimatorManager.getConfig().getTextviewTextAnimationType() == null) {
+        if (AnimatorManager.getConfig().getTextViewTextAnimationType() == ViewAnimatorType.None) {
             updateText(text, type);
             return;
         }
         if (this.type != null && this.text != null) {
-            SingleAnimatorUtil.executeAnimator(this, AnimatorManager.getConfig().getTextviewTextAnimationType(), textAction);
+            ViewAnimatorUtil.executeAnimator(this, AnimatorManager.getConfig().getTextViewTextAnimationType(), textAction);
         } else {
             updateText(text, type);
         }
@@ -66,11 +68,15 @@ public class SkinCompatAnimatorTextView extends SkinCompatTextView {
     @Override
     public void setVisibility(int visibility) {
 
-        if (AnimatorManager.getConfig().getTextviewVisibleAnimationType() == null) {
+        if (AnimatorManager.getConfig().getTextViewVisibleAnimationType() == ViewAnimatorType.None) {
             super.setVisibility(visibility);
         } else {
             this.visibleStatus = visibility;
-            SingleAnimatorUtil.executeAnimator(this, AnimatorManager.getConfig().getTextviewVisibleAnimationType(), visibleAction);
+            if(visibility == GONE){
+                ViewAnimatorUtil.executeAnimator(this, AnimatorManager.getConfig().getTextViewVisibleAnimationType(), visibleAction);
+            }else{
+                visibleAction.action();
+            }
         }
 
     }

@@ -1,4 +1,4 @@
-package skin.support.animator.SingleAnimator.hite;
+package skin.support.animator.SingleAnimator.hide;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -10,23 +10,23 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 
 import skin.support.animator.Action;
-import skin.support.animator.SingleAnimator.SingleAnimatorImpl;
+import skin.support.animator.SingleAnimator.ViewAnimatorImpl;
 import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class TranslationRotationHintAnimator2 extends SingleAnimatorImpl {
+public class TranslationRotationHideAnimator2 extends ViewAnimatorImpl {
 
     private ObjectAnimator animator;
 
-    private TranslationRotationHintAnimator2() {
+    private TranslationRotationHideAnimator2() {
     }
 
 
-    public static TranslationRotationHintAnimator2 getInstance() {
-        return new TranslationRotationHintAnimator2();
+    public static TranslationRotationHideAnimator2 getInstance() {
+        return new TranslationRotationHideAnimator2();
     }
 
     @Override
@@ -43,7 +43,6 @@ public class TranslationRotationHintAnimator2 extends SingleAnimatorImpl {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 resetView(view);
-                view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();
                 }

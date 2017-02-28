@@ -30,8 +30,8 @@ import java.util.List;
 
 import skin.support.SkinCompatManager;
 import skin.support.animator.Action;
-import skin.support.animator.AnimatorType;
 import skin.support.animator.SingleAnimator.AnimatorConfig;
+import skin.support.animator.SingleAnimator.ViewAnimatorType;
 
 import static com.ximsfei.skindemo.DataManager.NIGHT_SKIN;
 import static com.ximsfei.skindemo.DataManager.SKIN_LIBS;
@@ -80,7 +80,8 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
     private void configAnimator() {
         setAnimatorConfig(new AnimatorConfig
                 .Builder()
-                .textviewTextAnimationType(AnimatorType.ALPHA)
+                .textviewTextAnimationType(ViewAnimatorType.AlphaUpdateAnimator)
+                .textviewVisibleAnimationType(ViewAnimatorType.TranslationAlphaHideAnimator)
                 .build());
     }
 

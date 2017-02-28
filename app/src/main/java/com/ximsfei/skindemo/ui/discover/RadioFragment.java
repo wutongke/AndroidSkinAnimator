@@ -3,19 +3,17 @@ package com.ximsfei.skindemo.ui.discover;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.ximsfei.skindemo.R;
 import com.ximsfei.skindemo.databinding.FragmentRadioBinding;
 import com.ximsfei.skindemo.ui.base.BaseFragment;
 
-import skin.support.animator.SingleAnimator.hite.AlphaHintAnimator;
-import skin.support.animator.SingleAnimator.hite.RotationHintAnimator;
-import skin.support.animator.SingleAnimator.hite.ScaleHintAnimator;
-import skin.support.animator.SingleAnimator.hite.TranslationAlphaHintAnimator;
-import skin.support.animator.SingleAnimator.hite.TranslationAlphaHintAnimator2;
-import skin.support.animator.SingleAnimator.hite.TranslationHintAnimator;
-import skin.support.animator.SingleAnimator.hite.TranslationHintAnimator2;
-import skin.support.animator.SingleAnimator.hite.TranslationRotationHintAnimator2;
+import skin.support.animator.Action;
+import skin.support.animator.SingleAnimator.AnimatorManager;
+import skin.support.animator.SingleAnimator.ViewAnimatorType;
+import skin.support.animator.SingleAnimator.hide.RotationHideAnimator;
 
 /**
  * Created by ximsfei on 17-1-8.
@@ -36,10 +34,63 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
             public void onClick(View v) {
                 int childCount = mDataBinding.viewLayout.getChildCount();
                 for (int i = 0; i < childCount; i++) {
-                    mDataBinding.viewLayout.getChildAt(i).setVisibility(View.VISIBLE);
+                    if (mDataBinding.viewLayout.getChildAt(i) instanceof TextView) {
+                        mDataBinding.viewLayout.getChildAt(i).setVisibility(View.VISIBLE);
+                    }
                 }
             }
         });
+
+        mDataBinding.animator.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int childCount = mDataBinding.viewLayout.getChildCount();
+                for (int i = 0; i < childCount; i++) {
+                    if (mDataBinding.viewLayout.getChildAt(i) instanceof TextView) {
+                        mDataBinding.viewLayout.getChildAt(i).setVisibility(View.GONE);
+                    }
+                }
+            }
+        });
+
+        mDataBinding.toggle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (v.getTag().equals("close")) {
+                    mDataBinding.toggle.setText("关闭全局动画");
+                    v.setTag("open");
+                    AnimatorManager.openAnimator();
+                } else {
+                    mDataBinding.toggle.setText("开启全局动画");
+                    v.setTag("close");
+                    AnimatorManager.closeAnimator();
+                }
+            }
+        });
+
+        final int textviewOffset = mDataBinding.viewLayout.indexOfChild(mDataBinding.text2);
+        int childCount = mDataBinding.viewLayout.getChildCount();
+        for (int i = textviewOffset; i < childCount; i++) {
+            final int index = i;
+            mDataBinding.viewLayout.getChildAt(i).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (isAnimatorOpen()) {
+                        Toast.makeText(mDataBinding.viewLayout.getContext(), "开启全局动画后不执行点击动画效果", Toast.LENGTH_SHORT).show();
+                        return;
+                    } else {
+                        ViewAnimatorType.values()[(index - textviewOffset) % ViewAnimatorType.values().length]
+                                .apply(mDataBinding.viewLayout.getChildAt(index), new Action() {
+                                    @Override
+                                    public void action() {
+                                        mDataBinding.viewLayout.getChildAt(index).setVisibility(View.GONE);
+                                    }
+                                });
+                    }
+                }
+            });
+        }
+
         mDataBinding.text1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,63 +101,11 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
                 }
             }
         });
-
-        mDataBinding.text2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RotationHintAnimator.getInstance().apply(mDataBinding.text2, null).start();
-            }
-        });
-
-        mDataBinding.text3.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ScaleHintAnimator.getInstance().apply(v, null).start();
-            }
-        });
-
-        mDataBinding.text4.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TranslationHintAnimator.getInstance().apply(v, null).start();
-            }
-        });
-
-        mDataBinding.text5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TranslationHintAnimator2.getInstance().apply(v, null).start();
-            }
-        });
-
-        mDataBinding.text6.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlphaHintAnimator.getInstance().apply(v, null).start();
-            }
-        });
-
-        mDataBinding.text8.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TranslationRotationHintAnimator2.getInstance().apply(v, null).start();
-            }
-        });
-
-        mDataBinding.text9.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TranslationAlphaHintAnimator.getInstance().apply(v, null).start();
-            }
-        });
-        mDataBinding.text10.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TranslationAlphaHintAnimator2.getInstance().apply(v, null).start();
-            }
-        });
     }
 
+    private boolean isAnimatorOpen() {
+        return mDataBinding.toggle.getTag().equals("open");
+    }
 
     @Override
     protected void loadData() {

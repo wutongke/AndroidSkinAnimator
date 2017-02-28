@@ -1,4 +1,4 @@
-package skin.support.animator.SingleAnimator.hite;
+package skin.support.animator.SingleAnimator.hide;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
@@ -11,24 +11,24 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.LinearInterpolator;
 
 import skin.support.animator.Action;
-import skin.support.animator.SingleAnimator.SingleAnimatorImpl;
+import skin.support.animator.SingleAnimator.ViewAnimatorImpl;
 import skin.support.animator.SkinAnimator;
 
 /**
  * Created by erfli on 2/25/17.
  */
 
-public class RotationHintAnimator extends SingleAnimatorImpl {
+public class RotationHideAnimator extends ViewAnimatorImpl {
 
     private ObjectAnimator hiteAniamator;
     private ObjectAnimator rotationAnimator;
 
-    private RotationHintAnimator() {
+    private RotationHideAnimator() {
     }
 
 
-    public static RotationHintAnimator getInstance() {
-        return new RotationHintAnimator();
+    public static RotationHideAnimator getInstance() {
+        return new RotationHideAnimator();
     }
 
     @Override
@@ -62,7 +62,6 @@ public class RotationHintAnimator extends SingleAnimatorImpl {
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
                 resetView(view);
-                view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();
                 }
