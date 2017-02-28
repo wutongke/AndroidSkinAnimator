@@ -61,12 +61,7 @@ public class RotationHintAnimator extends SingleAnimatorImpl {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                view.setAlpha(1);
-                view.animate().rotation(0).start();
-                view.animate().translationY(0).start();
-                view.animate().translationX(0).start();
-                view.setPivotX(view.getLeft() + view.getWidth() / 2);
-                view.setPivotY(view.getTop() + view.getHeight() / 2);
+                resetView(view);
                 view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();

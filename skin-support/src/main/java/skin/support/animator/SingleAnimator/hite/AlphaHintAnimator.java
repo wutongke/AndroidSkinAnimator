@@ -41,7 +41,7 @@ public class AlphaHintAnimator extends SingleAnimatorImpl {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                view.setAlpha(1);
+                resetView(view);
                 view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();

@@ -11,6 +11,8 @@ import com.ximsfei.skindemo.ui.base.BaseFragment;
 import skin.support.animator.SingleAnimator.hite.AlphaHintAnimator;
 import skin.support.animator.SingleAnimator.hite.RotationHintAnimator;
 import skin.support.animator.SingleAnimator.hite.ScaleHintAnimator;
+import skin.support.animator.SingleAnimator.hite.TranslationAlphaHintAnimator;
+import skin.support.animator.SingleAnimator.hite.TranslationAlphaHintAnimator2;
 import skin.support.animator.SingleAnimator.hite.TranslationHintAnimator;
 import skin.support.animator.SingleAnimator.hite.TranslationHintAnimator2;
 import skin.support.animator.SingleAnimator.hite.TranslationRotationHintAnimator2;
@@ -88,6 +90,19 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
             @Override
             public void onClick(View v) {
                 TranslationRotationHintAnimator2.getInstance().apply(v, null).start();
+            }
+        });
+
+        mDataBinding.text9.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslationAlphaHintAnimator.getInstance().apply(v, null).start();
+            }
+        });
+        mDataBinding.text10.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TranslationAlphaHintAnimator2.getInstance().apply(v, null).start();
             }
         });
     }

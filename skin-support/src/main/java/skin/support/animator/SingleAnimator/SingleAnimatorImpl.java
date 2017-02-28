@@ -32,4 +32,15 @@ public abstract class SingleAnimatorImpl implements SkinAnimator {
 
     @Override
     public abstract void start();
+
+    protected void resetView(View view) {
+        view.setAlpha(1);
+        view.setScaleY(1);
+        view.setScaleX(1);
+        view.setRotation(0);
+        view.setTranslationX(0);
+        view.setTranslationY(0);
+        view.setPivotX(view.getWidth() / 2);
+        view.setPivotY(view.getHeight() / 2);
+    }
 }

@@ -42,9 +42,7 @@ public class ScaleHintAnimator extends SingleAnimatorImpl {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                view.setScaleX(1);
-                view.setScaleY(1);
-                view.setAlpha(1);
+                resetView(view);
                 view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();

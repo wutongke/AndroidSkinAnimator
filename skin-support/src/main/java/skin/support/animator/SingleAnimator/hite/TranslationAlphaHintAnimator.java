@@ -7,7 +7,7 @@ import android.animation.PropertyValuesHolder;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.View;
-import android.view.animation.AnticipateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import skin.support.animator.Action;
 import skin.support.animator.SingleAnimator.SingleAnimatorImpl;
@@ -17,25 +17,29 @@ import skin.support.animator.SkinAnimator;
  * Created by erfli on 2/25/17.
  */
 
-public class TranslationHintAnimator extends SingleAnimatorImpl {
+public class TranslationAlphaHintAnimator extends SingleAnimatorImpl {
 
     private ObjectAnimator animator;
 
-    private TranslationHintAnimator() {
+    private TranslationAlphaHintAnimator() {
     }
 
 
-    public static TranslationHintAnimator getInstance() {
-        return new TranslationHintAnimator();
+    public static TranslationAlphaHintAnimator getInstance() {
+        return new TranslationAlphaHintAnimator();
     }
 
     @Override
     public SkinAnimator apply(@NonNull final View view, @Nullable final Action action) {
+        int offset = -view.getWidth() / 2;
         animator = ObjectAnimator.ofPropertyValuesHolder(view,
                 PropertyValuesHolder.ofFloat("alpha", 1, 0),
-                PropertyValuesHolder.ofFloat("translationX", view.getLeft(), view.getRight()));
-        animator.setDuration(3 * PRE_DURATION);
-        animator.setInterpolator(new AnticipateInterpolator());
+                PropertyValuesHolder.ofFloat("translationX", 0, - offset, -offset, offset, offset, 0),
+                PropertyValuesHolder.ofFloat("rotation", 0, -30, -30, 30, 30, 0),
+                PropertyValuesHolder.ofFloat("translationY", 0, 3 * view.getHeight())
+        );
+        animator.setDuration(5 * PRE_DURATION);
+        animator.setInterpolator(new LinearInterpolator());
         animator.addListener(new AnimatorListenerAdapter() {
             @Override
             public void onAnimationEnd(Animator animation) {

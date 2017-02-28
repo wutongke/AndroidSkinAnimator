@@ -85,8 +85,8 @@ public class SkinRotateHintAnimator implements SkinAnimator {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                targetView.setPivotX(targetView.getLeft() + targetView.getWidth() / 2);
-                targetView.setPivotY(targetView.getTop() + targetView.getHeight() / 2);
+                targetView.setPivotX(targetView.getWidth() / 2);
+                targetView.setPivotY(targetView.getHeight() / 2);
             }
         });
         return this;

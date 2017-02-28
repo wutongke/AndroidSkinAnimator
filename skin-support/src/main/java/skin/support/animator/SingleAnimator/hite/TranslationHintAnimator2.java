@@ -40,8 +40,7 @@ public class TranslationHintAnimator2 extends SingleAnimatorImpl {
             @Override
             public void onAnimationEnd(Animator animation) {
                 super.onAnimationEnd(animation);
-                view.setAlpha(1);
-                view.animate().translationY(0).start();
+                resetView(view);
                 view.setVisibility(View.GONE);
                 if (action != null) {
                     action.action();
