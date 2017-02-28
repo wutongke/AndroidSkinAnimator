@@ -1,6 +1,7 @@
 package com.ximsfei.skindemo.widget;
 
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
@@ -13,6 +14,7 @@ import android.widget.ListView;
 import com.ximsfei.skindemo.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import skin.support.animator.Action;
 import skin.support.animator.AnimatorType;
@@ -25,17 +27,13 @@ import skin.support.animator.activityAnimator.SkinActivityAnimator;
 public class ArrayDialogFragment extends DialogFragment {
 
     private ListView animatorChooseListView;
-    private ArrayList<String> itemList = new ArrayList<>();
-
-    private Action action;
+    private List<String> itemList = new ArrayList<>();
+    private ArrayAdapter<String> arrayAdapter;
+    private AdapterView.OnItemClickListener onItemClickListener;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        itemList.clear();
-        for (AnimatorType animatorType : AnimatorType.values()) {
-            itemList.add(animatorType.name());
-        }
     }
 
     @Nullable
@@ -43,16 +41,15 @@ public class ArrayDialogFragment extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.animator_choose_fragment, null);
         animatorChooseListView = (ListView) view.findViewById(R.id.animator_choose_listview);
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.animator_choose_item);
+        arrayAdapter = new ArrayAdapter<>(view.getContext(), R.layout.animator_choose_item);
         arrayAdapter.addAll(itemList);
 
         animatorChooseListView.setAdapter(arrayAdapter);
         animatorChooseListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                SkinActivityAnimator.configActivityAnimatorType(AnimatorType.values()[position]);
-                if(action != null){
-                    action.action();
+                if (onItemClickListener != null) {
+                    onItemClickListener.onItemClick(parent, view, position, id);
                 }
                 ArrayDialogFragment.this.dismiss();
             }
@@ -60,7 +57,13 @@ public class ArrayDialogFragment extends DialogFragment {
         return view;
     }
 
-    public void setAction(Action action) {
-        this.action = action;
+    public void setItemList(@NonNull List itemList) {
+        this.itemList.clear();
+        this.itemList.addAll(itemList);
     }
+
+    public void setOnItemClickListener(AdapterView.OnItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
+    }
+
 }

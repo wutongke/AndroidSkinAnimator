@@ -25,6 +25,9 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
+        if(needAnimator()){
+            AnimatorManager.setConfig(new AnimatorConfig.Builder().build());
+        }
         LayoutInflaterCompat.setFactory(getLayoutInflater(), getSkinDelegate());
         super.onCreate(savedInstanceState);
     }
@@ -62,5 +65,9 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
 
     protected void setAnimatorConfig(AnimatorConfig animatorConfig){
         AnimatorManager.setConfig(animatorConfig);
+    }
+
+    protected boolean needAnimator(){
+        return false;
     }
 }

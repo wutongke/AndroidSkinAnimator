@@ -3,14 +3,20 @@ package com.ximsfei.skindemo.ui.discover;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ximsfei.skindemo.R;
 import com.ximsfei.skindemo.databinding.FragmentRadioBinding;
 import com.ximsfei.skindemo.ui.base.BaseFragment;
+import com.ximsfei.skindemo.widget.ArrayDialogFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import skin.support.animator.Action;
+import skin.support.animator.SingleAnimator.AnimatorConfig;
 import skin.support.animator.SingleAnimator.AnimatorManager;
 import skin.support.animator.SingleAnimator.ViewAnimatorType;
 
@@ -20,6 +26,8 @@ import skin.support.animator.SingleAnimator.ViewAnimatorType;
 
 public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
 
+    private ArrayDialogFragment arrayDialogFragment;
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_radio;
@@ -28,6 +36,34 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
     @Override
     protected void onCreateVew(LayoutInflater inflater, Bundle savedInstanceState) {
         super.onCreateVew(inflater, savedInstanceState);
+        initAnimatorChooseDialog();
+        initClick();
+    }
+
+    private void initAnimatorChooseDialog() {
+        List<String> itemList = new ArrayList<>();
+        for (ViewAnimatorType animatorType : ViewAnimatorType.values()) {
+            itemList.add(animatorType.name());
+        }
+        arrayDialogFragment = new ArrayDialogFragment();
+        arrayDialogFragment.setItemList(itemList);
+        arrayDialogFragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                AnimatorManager.setConfig(new AnimatorConfig.Builder()
+                        .textviewVisibleAnimationType(ViewAnimatorType.values()[position])
+                        .textviewTextAnimationType(ViewAnimatorType.AlphaUpdateAnimator)
+                        .build());
+                if(isAnimatorOpen()){
+                    AnimatorManager.openAnimator();
+                }else {
+                    AnimatorManager.closeAnimator();
+                }
+            }
+        });
+    }
+
+    private void initClick(){
         mDataBinding.recover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -40,11 +76,19 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
             }
         });
 
+        mDataBinding.choose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayDialogFragment.show(getActivity().getSupportFragmentManager(), "");
+            }
+        });
+
         mDataBinding.animator.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int childCount = mDataBinding.viewLayout.getChildCount();
-                for (int i = 0; i < childCount; i++) {
+                int textViewOffset = mDataBinding.viewLayout.indexOfChild(mDataBinding.text2);
+                for (int i = textViewOffset; i < childCount; i++) {
                     if (mDataBinding.viewLayout.getChildAt(i) instanceof TextView) {
                         mDataBinding.viewLayout.getChildAt(i).setVisibility(View.GONE);
                     }

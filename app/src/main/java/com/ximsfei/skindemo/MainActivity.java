@@ -12,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 
 import com.ximsfei.skindemo.databinding.ActivityMainBinding;
 import com.ximsfei.skindemo.databinding.MainHeaderLayoutBinding;
@@ -30,8 +31,10 @@ import java.util.List;
 
 import skin.support.SkinCompatManager;
 import skin.support.animator.Action;
+import skin.support.animator.AnimatorType;
 import skin.support.animator.SingleAnimator.AnimatorConfig;
 import skin.support.animator.SingleAnimator.ViewAnimatorType;
+import skin.support.animator.activityAnimator.SkinActivityAnimator;
 
 import static com.ximsfei.skindemo.DataManager.NIGHT_SKIN;
 import static com.ximsfei.skindemo.DataManager.SKIN_LIBS;
@@ -58,20 +61,31 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        configAnimator();
         super.onCreate(savedInstanceState);
         mDataBinding.setListener(this);
         initToolbar(mDataBinding.toolBar);
         initNavigationView(mDataBinding.navigationView);
+        configAnimator();
         configFragments();
         initConfigAnimatorDialog();
     }
 
+    @Override
+    protected boolean needAnimator() {
+        return true;
+    }
+
     private void initConfigAnimatorDialog() {
+        List<String> itemList = new ArrayList<>();
+        for (AnimatorType animatorType : AnimatorType.values()) {
+            itemList.add(animatorType.name());
+        }
         dialogFragment = new ArrayDialogFragment();
-        dialogFragment.setAction(new Action() {
+        dialogFragment.setItemList(itemList);
+        dialogFragment.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void action() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                SkinActivityAnimator.configActivityAnimatorType(AnimatorType.values()[position]);
                 changeNightMode();
             }
         });
