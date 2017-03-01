@@ -30,7 +30,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import skin.support.SkinCompatManager;
-import skin.support.animator.Action;
 import skin.support.animator.AnimatorType;
 import skin.support.animator.SingleAnimator.AnimatorConfig;
 import skin.support.animator.SingleAnimator.ViewAnimatorType;
