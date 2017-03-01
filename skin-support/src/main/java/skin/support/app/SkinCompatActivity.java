@@ -11,6 +11,7 @@ import skin.support.SkinCompatManager;
 import skin.support.animator.Action;
 import skin.support.animator.SingleAnimator.AnimatorConfig;
 import skin.support.animator.SingleAnimator.AnimatorManager;
+import skin.support.animator.SingleAnimator.ViewAnimatorType;
 import skin.support.animator.activityAnimator.SkinActivityAnimator;
 import skin.support.observe.SkinObservable;
 import skin.support.observe.SkinObserver;
@@ -25,8 +26,12 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        if(needAnimator()){
-            AnimatorManager.setConfig(new AnimatorConfig.Builder().build());
+        if (needAnimator()) {
+            AnimatorManager.setConfig(new AnimatorConfig.Builder()
+                    .textviewVisibleAnimationType(ViewAnimatorType.AlphaHideAnimator)
+                    .textviewTextAnimationType(ViewAnimatorType.AlphaUpdateAnimator)
+                    .imageviewVisibleAnimationType(ViewAnimatorType.AlphaHideAnimator)
+                    .build());
         }
         LayoutInflaterCompat.setFactory(getLayoutInflater(), getSkinDelegate());
         super.onCreate(savedInstanceState);
@@ -63,11 +68,11 @@ public class SkinCompatActivity extends AppCompatActivity implements SkinObserve
         });
     }
 
-    protected void setAnimatorConfig(AnimatorConfig animatorConfig){
+    protected void setAnimatorConfig(AnimatorConfig animatorConfig) {
         AnimatorManager.setConfig(animatorConfig);
     }
 
-    protected boolean needAnimator(){
+    protected boolean needAnimator() {
         return false;
     }
 }

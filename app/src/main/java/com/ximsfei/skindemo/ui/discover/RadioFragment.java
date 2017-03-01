@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ximsfei.skindemo.R;
@@ -53,25 +52,24 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
                 AnimatorManager.setConfig(new AnimatorConfig.Builder()
                         .textviewVisibleAnimationType(ViewAnimatorType.values()[position])
                         .textviewTextAnimationType(ViewAnimatorType.AlphaUpdateAnimator)
+                        .imageviewVisibleAnimationType(ViewAnimatorType.values()[position])
                         .build());
-                if(isAnimatorOpen()){
+                if (isAnimatorOpen()) {
                     AnimatorManager.openAnimator();
-                }else {
+                } else {
                     AnimatorManager.closeAnimator();
                 }
             }
         });
     }
 
-    private void initClick(){
+    private void initClick() {
         mDataBinding.recover.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 int childCount = mDataBinding.viewLayout.getChildCount();
                 for (int i = 0; i < childCount; i++) {
-                    if (mDataBinding.viewLayout.getChildAt(i) instanceof TextView) {
-                        mDataBinding.viewLayout.getChildAt(i).setVisibility(View.VISIBLE);
-                    }
+                    mDataBinding.viewLayout.getChildAt(i).setVisibility(View.VISIBLE);
                 }
             }
         });
@@ -89,9 +87,7 @@ public class RadioFragment extends BaseFragment<FragmentRadioBinding> {
                 int childCount = mDataBinding.viewLayout.getChildCount();
                 int textViewOffset = mDataBinding.viewLayout.indexOfChild(mDataBinding.text2);
                 for (int i = textViewOffset; i < childCount; i++) {
-                    if (mDataBinding.viewLayout.getChildAt(i) instanceof TextView) {
-                        mDataBinding.viewLayout.getChildAt(i).setVisibility(View.GONE);
-                    }
+                    mDataBinding.viewLayout.getChildAt(i).setVisibility(View.GONE);
                 }
             }
         });

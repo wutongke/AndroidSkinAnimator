@@ -95,6 +95,7 @@ public class MainActivity extends BaseActivity<ActivityMainBinding> {
                 .Builder()
                 .textviewTextAnimationType(ViewAnimatorType.AlphaUpdateAnimator)
                 .textviewVisibleAnimationType(ViewAnimatorType.TranslationAlphaHideAnimator)
+                .imageviewVisibleAnimationType(ViewAnimatorType.TranslationAlphaHideAnimator)
                 .build());
     }
 

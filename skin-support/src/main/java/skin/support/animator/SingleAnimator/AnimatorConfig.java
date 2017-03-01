@@ -21,8 +21,8 @@ public class AnimatorConfig {
     private static final int TextViewSetVisibleAnimator = Mask_First;
     private static final int TextViewSetTextAnimator = Mask_Second;
 
-    public static final int ImageViewAnimatorMask = Mask >> MaskLength;
-    private static final int ImageViewSetVisibleAnimator = Mask_First >> MaskLength;
+    public static final int ImageViewAnimatorMask = Mask << MaskLength;
+    private static final int ImageViewSetVisibleAnimator = Mask_First << MaskLength;
 
     private ViewAnimatorType textviewTextAnimationType = ViewAnimatorType.None;
     private ViewAnimatorType textviewVisibleAnimationType = ViewAnimatorType.None;
@@ -72,16 +72,17 @@ public class AnimatorConfig {
         return checkAnimatorOpen(textviewVisibleAnimationType);
     }
 
+
+    public ViewAnimatorType getImageViewVisibleAnimationType() {
+        return checkAnimatorOpen(imageviewVisibleAnimationType);
+    }
+
     private ViewAnimatorType checkAnimatorOpen(ViewAnimatorType animatorType){
         if(Toggle == Open){
             return animatorType;
         }else{
             return ViewAnimatorType.None;
         }
-    }
-
-    public ViewAnimatorType getImageviewVisibleAnimationType() {
-        return imageviewVisibleAnimationType;
     }
 
     public static final class Builder {

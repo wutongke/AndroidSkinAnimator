@@ -42,6 +42,7 @@ import skin.support.widget.SkinCompatSpinner;
 import skin.support.widget.SkinCompatTextView;
 import skin.support.widget.SkinCompatToolbar;
 import skin.support.widget.SkinCompatView;
+import skin.support.widget.animator.SkinCompatAnimatorImageView;
 import skin.support.widget.animator.SkinCompatAnimatorTextView;
 
 /**
@@ -104,11 +105,15 @@ public class SkinCompatViewInflater {
                 if(AnimatorManager.getConfig().needTextViewAnimator()){
                     view = new SkinCompatAnimatorTextView(context, attrs);
                 }else{
-                    view = new SkinCompatAnimatorTextView(context, attrs);
+                    view = new SkinCompatTextView(context, attrs);
                 }
                 break;
             case "ImageView":
-                view = new SkinCompatImageView(context, attrs);
+                if(AnimatorManager.getConfig().needImageViewAnimator()){
+                    view = new SkinCompatAnimatorImageView(context, attrs);
+                }else{
+                    view = new SkinCompatImageView(context, attrs);
+                }
                 break;
             case "Button":
                 view = new SkinCompatButton(context, attrs);

@@ -59,7 +59,7 @@ AnimatorManager.setConfig(new AnimatorConfig.Builder()
                         .build());
 ```
 
-* 4.在需要的地方打个关闭动画：
+* 4.在需要的地方打开关闭动画：
 
 ```
 AnimatorManager.openAnimator();
