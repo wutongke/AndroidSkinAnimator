@@ -75,8 +75,3 @@ AnimatorManager.closeAnimator();
 * android com.android.support:appcompat-v7源码
 
 ## [License MIT](LICENSE)
-
-
-欢迎关注公众号**wutongke**，每天推送移动开发前沿技术文章：
-
-![wutongke](http://upload-images.jianshu.io/upload_images/1407686-8f64e33d76075d40.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
